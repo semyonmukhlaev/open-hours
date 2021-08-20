@@ -52,12 +52,10 @@ class OpenHoursService {
                     CLOSE -> {
                         validateCloseHours(days, dayNumber)
                         if (dayNumber != 0) {
-                            //validateCloseHours(days[dayNumber - 1], day.first)
                             todayWorkHours.removeFirstOrNull()?.let {
                                 days[dayNumber - 1].second.add(it)
                             }
                         } else {
-                            //validateCloseHours(days.last())
                             todayWorkHours.removeFirstOrNull()?.let {
                                 days.last().second.add(it)
                             }
@@ -81,9 +79,9 @@ class OpenHoursService {
                 val formattedWorkHours = mutableListOf<String>()
                 workHours.forEach { workHour ->
                     when (workHour.type) {
-                        OPEN -> workHourResult.append("${workHour.value.getTime()} - ")
+                        OPEN -> workHourResult.append("${workHour.value.getTime().uppercase()} - ")
                         CLOSE -> {
-                            workHourResult.append(workHour.value.getTime())
+                            workHourResult.append(workHour.value.getTime().uppercase())
                             formattedWorkHours.add(workHourResult.toString())
                             workHourResult.clear()
                         }

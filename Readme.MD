@@ -1,6 +1,8 @@
 #Running
 
-Using docker:
+###Your can run application using docker:
+
+Run next commands in terminal in project's root directory:
 
 `gradlew clean installDist`
 
@@ -8,7 +10,8 @@ Using docker:
 
 `docker run -p 8080:8080 open-hours`
 
-Or just run `main` method in Application.kt
+###Or run in IDE:
+Build application `gradlew build` then run `main` method in Application.kt
 
 Then send post request 0.0.0.0:8080/generateOpenHours with proper json.
 
@@ -23,7 +26,7 @@ Opening hour for Monday is 9AM and closing hour is 11AM the next day.
 In this case it will look like
 Monday: 9AM-11AM.
 
-I would limited the closing hours for these cases, say, by 6am.  
+I would limit the closing hours for these cases, say, by 6am.  
 
 ## Suggestion
 I suggest using 24-hour format, because it seems more suitable and convenient.
