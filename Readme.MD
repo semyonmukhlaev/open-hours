@@ -1,6 +1,6 @@
 #Running
 
-###Your can run application using docker:
+Your can run application using docker:
 
 Run next commands in terminal in project's root directory:
 
@@ -10,7 +10,8 @@ Run next commands in terminal in project's root directory:
 
 `docker run -p 8080:8080 open-hours`
 
-###Or run in IDE:
+Or run in IDE:
+
 Build application `gradlew build` then run `main` method in Application.kt
 
 Then send post request 0.0.0.0:8080/generateOpenHours with proper json.
