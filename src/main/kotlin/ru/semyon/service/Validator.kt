@@ -5,14 +5,15 @@ import ru.semyon.model.WorkHours
 class Validator {
     companion object {
         fun validate(day: Pair<String, MutableList<WorkHours>>) {
-            day.second.forEachIndexed { index, todayWorkHour ->
-                if (index < day.second.size - 1)
-                    require(todayWorkHour.type != day.second[index + 1].type) {
-                        "${day.first} has work hours duplicate: ${day.second[index + 1].type} - ${day.second[index + 1].value} after ${todayWorkHour.type} - ${todayWorkHour.value}"
+            val workHours = day.second
+            workHours.forEachIndexed { index, todayWorkHour ->
+                if (index < workHours.size - 1)
+                    require(todayWorkHour.type != workHours[index + 1].type) {
+                        "${day.first} has work hours duplicate: ${workHours[index + 1].type} - ${workHours[index + 1].value} after ${todayWorkHour.type} - ${todayWorkHour.value}"
                     }
 
-                if (index < day.second.size - 1 && day.second.size > 1 && todayWorkHour.type == "open")
-                    require(day.second[index + 1].value >= todayWorkHour.value) {
+                if (index < workHours.size - 1 && workHours.size > 1 && todayWorkHour.type == "open")
+                    require(workHours[index + 1].value >= todayWorkHour.value) {
                         "${day.first}: Close hour should be greater than open hour"
                     }
             }
@@ -36,11 +37,17 @@ class Validator {
             days: MutableList<Pair<String, MutableList<WorkHours>>>,
             dayNumber: Int
         ) {
-            if (dayNumber == LAST_WEEK_DAY) require(days.first().second.isNotEmpty() && days.first().second.first().type != OpenHoursService.OPEN) {
-                "${days.first().first} have to start with 'close' work hours."
+            if (dayNumber == LAST_WEEK_DAY) {
+                val firstDayWorkHours = days.first().second
+                require(firstDayWorkHours.isNotEmpty() && firstDayWorkHours.first().type != OpenHoursService.OPEN) {
+                    "${days.first().first} has to start with 'close' work hours."
+                }
             }
-            else require(days[dayNumber + 1].second.isNotEmpty() && days[dayNumber + 1].second.first().type != OpenHoursService.OPEN) {
-                "${days[dayNumber + 1].first} have to start with 'close' work hours."
+            else {
+                val nextDayWorkHours = days[dayNumber + 1].second
+                require(nextDayWorkHours.isNotEmpty() && nextDayWorkHours.first().type != OpenHoursService.OPEN) {
+                    "${days[dayNumber + 1].first} has to start with 'close' work hours."
+                }
             }
         }
 

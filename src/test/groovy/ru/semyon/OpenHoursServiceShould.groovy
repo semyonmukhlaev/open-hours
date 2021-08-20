@@ -11,7 +11,7 @@ class OpenHoursServiceShould extends Specification {
     def service = new OpenHoursService()
     def create = new ObjectMother()
 
-    def "generate open hours when each day have open and close hours"() {
+    def "generate open hours when each day has open and close hours"() {
         given:
         def request = create.weekRequest().please()
 
@@ -31,7 +31,7 @@ class OpenHoursServiceShould extends Specification {
                 Sunday: 12:00 AM - 12:20 AM""".stripIndent()
     }
 
-    def "generate open hours when each day has close hours in next day"() {
+    def "generate open hours when each day has close hours next day"() {
         given:
         def request = create.weekRequest().withEachDayCloseTomorrow().please()
 
@@ -109,7 +109,7 @@ class OpenHoursServiceShould extends Specification {
         workHourValue << [-1, 999999]
     }
 
-    def "generate open hours when monday and sunday have 3 WorkHours"() {
+    def "generate open hours when Monday and Sunday have 3 WorkHours"() {
         given:
         def request = create.weekRequest().withChanges {
             it.monday = [
@@ -161,7 +161,7 @@ class OpenHoursServiceShould extends Specification {
 
         then:
         result.class == GenerationResult.Failure.class
-        (result as GenerationResult.Failure).error == "TUESDAY have to start with 'close' work hours."
+        (result as GenerationResult.Failure).error == "TUESDAY has to start with 'close' work hours."
     }
 
     def "fail generation with error when open value greater than close value"() {
@@ -202,7 +202,7 @@ class OpenHoursServiceShould extends Specification {
                 "TUESDAY has to start with 'open' work hour or MONDAY has to end with 'open' work hour."
     }
 
-    def "fail generation with error when day missing close work hour"() {
+    def "fail generation with error when day misses close work hour"() {
         given:
         def request = create.weekRequest().withChanges {
             it.monday = [
@@ -221,7 +221,7 @@ class OpenHoursServiceShould extends Specification {
         then:
         result.class == GenerationResult.Failure.class
         (result as GenerationResult.Failure).error ==
-                "TUESDAY have to start with 'close' work hours."
+                "TUESDAY has to start with 'close' work hours."
     }
 
     def "fail generation with error when day has open after open work hour"() {

@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk
 EXPOSE 8080:8080
 RUN mkdir /app
-COPY ./build/install/ktor-wolt/ /app/
+COPY ./build/install/open-hours/ /app/
 WORKDIR /app/bin
-CMD ["./ktor-wolt"]
+CMD ["./open-hours"]
